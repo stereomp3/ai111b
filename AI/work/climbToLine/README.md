@@ -34,7 +34,7 @@ def hillClimbing(f, hx, h=0.01):
                     dh.append(0)
             nh_x = ArrayAdd(h_x, dh)
             nh_x2 = ArrayAdd(h_x, dh, True)
-            if f(nh_x) < f(h_x):
+            if f(nh_x) < f(h_x):  # 比較loss function，loss越小越好
                 h_x = nh_x
                 In = True
             if f(nh_x2) < f(h_x):
