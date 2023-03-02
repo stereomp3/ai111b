@@ -51,7 +51,7 @@ class TSP:
                         self.order = new_order
                         # print(new_order)
                 self.score += self.distence(now_pos[0] - next_pos[0], now_pos[1] - next_pos[1])
-            if self.score <= pre_score:
+            if self.score < pre_score:
                 self.order = pre_order
                 return [self.score, self.order]
 
@@ -80,7 +80,7 @@ class TSP:
 graph = Graph(input)
 ans = TSP(graph.getGraph())
 print(graph.getGraph())
-print(ans.calculate(1000))
+print(ans.calculate(100))
 # print(ans.order)
 # print(ans.swap(1,2))
 # print(ans.swap(2,2))
