@@ -27,12 +27,13 @@ class TSP:
         self.graph = graph
         self.score = 0
         self.order = []
-    def calculate(self, times):
+    def calculate(self, tolerate,times):
         self.ListInit()
         l = len(self.order)
+        pre_score = self.score
+        pre_order = self.order
+        tol = tolerate
         while True:
-            pre_score = self.score
-            pre_order = self.order
             self.score = 0
             # self.order = self.swap()
             for i in range(l - 1):
@@ -51,9 +52,22 @@ class TSP:
                         self.order = new_order
                         # print(new_order)
                 self.score += self.distence(now_pos[0] - next_pos[0], now_pos[1] - next_pos[1])
+            print(self.score)
+            if not tol:
+                return [pre_score, pre_order]
+
             if self.score < pre_score:
-                self.order = pre_order
-                return [self.score, self.order]
+                if not tol:
+                    return [self.score, self.order]
+                else:
+                    print(tol)
+                    pre_order = self.order
+                    pre_score = self.score
+                    tol = tolerate
+            elif not pre_score:
+                pre_score = self.score
+            else:
+                tol -= 1
 
 
     def distence(self, x, y):
@@ -80,7 +94,7 @@ class TSP:
 graph = Graph(input)
 ans = TSP(graph.getGraph())
 print(graph.getGraph())
-print(ans.calculate(100))
+print(ans.calculate(10, 100))
 # print(ans.order)
 # print(ans.swap(1,2))
 # print(ans.swap(2,2))

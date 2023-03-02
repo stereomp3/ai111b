@@ -52,17 +52,19 @@ class TSP:
         self.graph = graph  # 字典，存圖
         self.score = 0  # 存路徑長度。越低越好
         self.order = []  # 存順序，就是存取上面字典的key
-    def calculate(self, times):
+    def calculate(self, tolerate, times):
         """
         搜尋最短路徑，主要觸發函數是calculate
+        :param tolerate: 比較次數，如果跑多次都大於原本的值，就退出並return最好的結果
         :param times: swap的次數 
         :return [score, order]: 回傳路徑長度(越低越好)和路徑排序
         """
         self.ListInit()
         l = len(self.order)
+        pre_score = self.score
+        pre_order = self.order
+        tol = tolerate
         while True:
-            pre_score = self.score
-            pre_order = self.order
             self.score = 0
             # self.order = self.swap()
             for i in range(l - 1):
@@ -78,9 +80,21 @@ class TSP:
                     if h > nh:
                         self.order = new_order
                 self.score += self.distence(now_pos[0] - next_pos[0], now_pos[1] - next_pos[1])
+            if not tol:
+                return [pre_score, pre_order]
+
             if self.score < pre_score:
-                self.order = pre_order
-                return [self.score, self.order]
+                if not tol:
+                    return [self.score, self.order]
+                else:
+                    # print(tol)
+                    pre_order = self.order
+                    pre_score = self.score
+                    tol = tolerate
+            elif not pre_score:
+                pre_score = self.score
+            else:
+                tol -= 1
 
 
     def distence(self, x, y):
@@ -123,6 +137,6 @@ class TSP:
 graph = Graph(input)
 ans = TSP(graph.getGraph())
 print(graph.getGraph())
-print(ans.calculate(100))
+print(ans.calculate(10, 100))  # 裡面的tolerate和times越大，就會算越準
 ```
 
