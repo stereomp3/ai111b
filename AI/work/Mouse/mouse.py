@@ -45,7 +45,8 @@ while not q.empty():
             q.put((pos[0], pos[1] - 1, pos[2] + 1))
             m[pos[0]][pos[1] - 1] = pos[2] + 1
 
-
+for r in m:
+    print(r)
 shortest = -1
 for x in range(row):
     for y in range(col):
