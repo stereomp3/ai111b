@@ -23,4 +23,5 @@ deno open ai 使用: https://deno.land/x/openai@1.3.4
 * [index.html](index.html): 主要頁面
 * [form.css](form.css): 主要頁面的樣式
 * [server.js](server.js): deno server
-* [gpt.js:](gpt.js:) 利用fetch去request deno server的JS文件
+* [gpt.js](gpt.js): 利用fetch去request deno server的JS文件
+
